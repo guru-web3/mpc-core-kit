@@ -1,11 +1,83 @@
+import type { Config } from "tailwindcss";
 import tailwindCssVariables from "@mertasan/tailwindcss-variables";
 import containerQueries from "@tailwindcss/container-queries";
 import colors from "tailwindcss/colors";
 import defaultTheme from "tailwindcss/defaultTheme";
 
 export default {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
+    colors: {
+      transparent: colors.transparent,
+      app: {
+        onPrimary: "var(--app-on-primary)",
+        primary: {
+          900: "var(--app-primary-900)",
+          800: "var(--app-primary-800)",
+          700: "var(--app-primary-700)",
+          600: "var(--app-primary-600)",
+          500: "var(--app-primary-500)",
+          400: "var(--app-primary-400)",
+          300: "var(--app-primary-300)",
+          200: "var(--app-primary-200)",
+          100: "var(--app-primary-100)",
+          50: "var(--app-primary-50)",
+        },
+        gray: {
+          900: "var(--app-gray-900)",
+          800: "var(--app-gray-800)",
+          700: "var(--app-gray-700)",
+          600: "var(--app-gray-600)",
+          500: "var(--app-gray-500)",
+          400: "var(--app-gray-400)",
+          300: "var(--app-gray-300)",
+          200: "var(--app-gray-200)",
+          100: "var(--app-gray-100)",
+          50: "var(--app-gray-50)",
+        },
+        blue: {
+          900: "var(--app-blue-900)",
+          800: "var(--app-blue-800)",
+          700: "var(--app-blue-700)",
+          600: "var(--app-blue-600)",
+          500: "var(--app-blue-500)",
+          400: "var(--app-blue-400)",
+          300: "var(--app-blue-300)",
+          200: "var(--app-blue-200)",
+          100: "var(--app-blue-100)",
+          50: "var(--app-blue-50)",
+        },
+        light: {
+          "surface-main": "var(--app-gray-100)",
+          surface1: "var(--app-white)",
+          surface2: "var(--app-gray-50)",
+          surface3: "var(--app-gray-100)",
+          surface4: "var(--app-gray-200)",
+        },
+        dark: {
+          "surface-main": "var(--app-gray-900)",
+          surface1: "var(--app-black)",
+          surface2: "var(--app-gray-900)",
+          surface3: "var(--app-gray-800)",
+          surface4: "var(--app-gray-700)",
+        },
+        success: "var(--app-success)",
+        warning: "var(--app-warning)",
+        error: "var(--app-error)",
+        info: "var(--app-info)",
+        white: "var(--app-white)",
+        black: "var(--app-black)",
+        alertDark: "var(--app-alertDark)",
+        blueBorder: "var(--app-blueBorder)",
+      },
+    },
     extend: {
       transitionProperty: {
         height: "height",
@@ -27,74 +99,6 @@ export default {
       },
       fontFamily: {
         primary: ["Inter", ...defaultTheme.fontFamily.sans],
-      },
-      backgroundImage: {
-        balanceCard: "url('/https://assets.web3pay.io/images/background.svg')",
-        walletConnectCard: "url('/images/wallet-connect-background.png')",
-      },
-      colors: {
-        transparent: colors.transparent,
-        app: {
-          onPrimary: "var(--app-on-primary)",
-          primary: {
-            900: "var(--app-primary-900)",
-            800: "var(--app-primary-800)",
-            700: "var(--app-primary-700)",
-            600: "var(--app-primary-600)",
-            500: "var(--app-primary-500)",
-            400: "var(--app-primary-400)",
-            300: "var(--app-primary-300)",
-            200: "var(--app-primary-200)",
-            100: "var(--app-primary-100)",
-            50: "var(--app-primary-50)",
-          },
-          gray: {
-            900: "var(--app-gray-900)",
-            800: "var(--app-gray-800)",
-            700: "var(--app-gray-700)",
-            600: "var(--app-gray-600)",
-            500: "var(--app-gray-500)",
-            400: "var(--app-gray-400)",
-            300: "var(--app-gray-300)",
-            200: "var(--app-gray-200)",
-            100: "var(--app-gray-100)",
-            50: "var(--app-gray-50)",
-          },
-          blue: {
-            900: "var(--app-blue-900)",
-            800: "var(--app-blue-800)",
-            700: "var(--app-blue-700)",
-            600: "var(--app-blue-600)",
-            500: "var(--app-blue-500)",
-            400: "var(--app-blue-400)",
-            300: "var(--app-blue-300)",
-            200: "var(--app-blue-200)",
-            100: "var(--app-blue-100)",
-            50: "var(--app-blue-50)",
-          },
-          light: {
-            "surface-main": "var(--app-gray-100)",
-            surface1: "var(--app-white)",
-            surface2: "var(--app-gray-50)",
-            surface3: "var(--app-gray-100)",
-            surface4: "var(--app-gray-200)",
-          },
-          dark: {
-            "surface-main": "var(--app-gray-900)",
-            surface1: "var(--app-black)",
-            surface2: "var(--app-gray-900)",
-            surface3: "var(--app-gray-800)",
-            surface4: "var(--app-gray-700)",
-          },
-          success: "var(--app-success)",
-          warning: "var(--app-warning)",
-          error: "var(--app-error)",
-          info: "var(--app-info)",
-          white: "var(--app-white)",
-          black: "var(--app-black)",
-          alertDark: "var(--app-alertDark)",
-          blueBorder: "var(--app-blueBorder)",
-        },
       },
       keyframes: {
         fadeIn: {
@@ -184,4 +188,4 @@ export default {
     containerQueries,
   ],
   darkMode: "class",
-};
+} as Config;
