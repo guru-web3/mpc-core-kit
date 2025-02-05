@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import {
-  WEB3AUTH_NETWORK,
   COREKIT_STATUS,
   makeEthereumSigner,
   AggregateVerifierLoginParams,
@@ -101,7 +100,7 @@ const uiConsole = (...args: any[]): void => {
 export const DEFAULT_CHAIN_CONFIG: CustomChainConfig = {
   chainNamespace: CHAIN_NAMESPACES.EIP155,
   chainId: "0x66eee", // Arbitrum Sepolia chain ID
-  rpcTarget: "https://arbitrum-sepolia.blockpi.network/v1/rpc/private",
+  rpcTarget: "https://sepolia-rollup.arbitrum.io/rpc",
   displayName: "Arbitrum Sepolia Testnet",
   blockExplorerUrl: "https://sepolia.arbiscan.io", // Arbitrum Sepolia block explorer URL
   ticker: "ETH",
@@ -130,7 +129,7 @@ function App() {
     // Example config to handle redirect result manually
     setIsLoading(true);
     if (coreKitInstance.status === COREKIT_STATUS.NOT_INITIALIZED) {
-      await coreKitInstance.init({ rehydrate: true, handleRedirectResult: false });
+      await coreKitInstance.init({ rehydrate: true, handleRedirectResult: true });
       setCoreKitInstance(coreKitInstance);
       setIsLoading(false);
     }
@@ -191,8 +190,12 @@ function App() {
       const verifierConfig = {
         subVerifierDetails: {
           typeOfLogin: "google",
-          verifier: "w3-google-temp",
+          verifier: "w3-google-dev",
+          // verifier: "w3-google-temp",
           clientId: "759944447575-6rm643ia1i9ngmnme3eq5viiep5rp6s0.apps.googleusercontent.com",
+          jwtParams: {
+            verifierIdField: "email",
+          },
         },
       };
       // const verifierConfig = {
@@ -219,7 +222,7 @@ function App() {
     }
   };
 
-  const loginWithAuth0EmailPasswordless = async () => {
+  const loginWithAuth0EmailPasswordless = async (loginHint: string) => {
     try {
       setIsLoading(true);
       if (!coreKitInstance) {
@@ -227,23 +230,33 @@ function App() {
       }
 
       // IMP START - Login
+      // const verifierConfig = {
+      //   subVerifierDetails: 
+      //     {
+      //       typeOfLogin: "jwt",
+      //       verifier: "w3a-a0-email-passwordless",
+      //       clientId: "QiEf8qZ9IoasbZsbHvjKZku4LdnRC1Ct",
+      //       jwtParams: {
+      //         // connection: "passwordless",
+      //         domain: "https://web3auth.au.auth0.com",
+      //         verifierIdField: "email",
+      //       },
+      //     },
+      // };
       const verifierConfig = {
-        aggregateVerifierIdentifier: "aggregate-sapphire",
-        subVerifierDetailsArray: [
+        subVerifierDetails: 
           {
-            typeOfLogin: "jwt",
-            verifier: "w3a-a0-email-passwordless",
-            clientId: "QiEf8qZ9IoasbZsbHvjKZku4LdnRC1Ct",
+            typeOfLogin: "email_passwordless",
+            verifier: "w3a-email-passwordless-demo",
+            clientId: "BHgArYmWwSeq21czpcarYh0EVq2WWOzflX-NTK-tY1-1pauPzHKRRLgpABkmYiIV_og9jAvoIxQ8L3Smrwe04Lw",
             jwtParams: {
-              // connection: "passwordless",
-              domain: "https://web3auth.au.auth0.com",
-              verifierIdField: "email",
-            },
+              // connection: "password
+              login_hint: loginHint.trim(),
+            }
           },
-        ],
-      } as AggregateVerifierLoginParams;
+      };
 
-      await coreKitInstance.loginWithOAuth(verifierConfig);
+      await coreKitInstance.loginWithOAuth(verifierConfig as any);
       // IMP END - Login
       if (coreKitInstance.status === COREKIT_STATUS.LOGGED_IN) {
         await coreKitInstance.commitChanges(); // Needed for new accounts

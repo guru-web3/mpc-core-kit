@@ -4,10 +4,12 @@ import { Button } from "./Button";
 import { Card } from "./Card";
 import { Drawer } from "./Drawer";
 import { useCoreKit } from "../composibles/useCoreKit";
-import { HiOutlineDuplicate } from "react-icons/hi";
+import { HiOutlineDuplicate, HiOutlineTrash } from "react-icons/hi";
 import { HiOutlineCheckCircle } from "react-icons/hi";
 import { Link } from "./Link";
 import useUnifiedRPC from "../composibles/useRpc";
+import { Dropdown } from "./DropDown";
+import { TextField } from "./TextField";
 
 const UserCard: React.FC = () => {
   const { drawerHeading, setDrawerHeading, drawerInfo, setDrawerInfo, userInfo, coreKitInstance } = useCoreKit();
@@ -18,6 +20,31 @@ const UserCard: React.FC = () => {
   const [imageError, setImageError] = React.useState(false);
   const [currentDrawerHeading, setCurrentDrawerHeading] = React.useState("");
   const [currentDrawerInfo, setCurrentDrawerInfo] = React.useState<any>(null);
+  const [walletAddresses, setWalletAddresses] = React.useState<{ index: number; address: string }[]>([]);
+  const [selectedWallet, setSelectedWallet] = React.useState<string>("");
+  const [newWalletName, setNewWalletName] = React.useState<string>("");
+
+  const fetchWalletAddresses = async () => {
+    const indices = await coreKitInstance.getTssWalletIndices();
+    indices.push({ address: account, index: 0 })
+    indices.sort((a, b) => a.index - b.index);
+    setWalletAddresses(indices);
+    if (indices.length > 0) {
+      setSelectedWallet(indices[1].address);
+    }
+  };
+
+  React.useEffect(() => {
+    if (account)
+      fetchWalletAddresses();
+  }, [account]);
+
+  const createNewWallet = async () => {
+    const indices = coreKitInstance.getTssWalletIndices();
+    const newIndex = indices?.[indices.length - 1]?.index || 0 + 1;
+    await coreKitInstance.setTssWalletIndex(newIndex, newWalletName);
+    await fetchWalletAddresses();
+  };
 
   React.useEffect(() => {
     if (drawerHeading) {
@@ -34,7 +61,6 @@ const UserCard: React.FC = () => {
       setOpenConsole(true);
     }
   }, [drawerInfo]);
-
 
   React.useEffect(() => {
     const getAccountRPC = async () => {
@@ -61,7 +87,7 @@ const UserCard: React.FC = () => {
 
   const getTruncateString = (val: string) => {
     const address = val || "";
-    return `${address.slice(0, 10)}....${address.slice(address.length - 6)}`;
+    return `${address?.slice(0, 10)}....${address?.slice(address.length - 6)}`;
   };
 
   const returnAvatarLetter = (name: string) => {
@@ -73,6 +99,16 @@ const UserCard: React.FC = () => {
       return `${nameFirst?.charAt(0).toUpperCase() || ""}${nameSecond?.charAt(0).toUpperCase() || ""}`;
     }
   };
+
+  interface Wallet {
+    index: number;
+    address: string;
+  }
+
+  const onDelete = async (wallet: Wallet) => {
+    await coreKitInstance.deleteTssWalletIndex(wallet.index);
+    await fetchWalletAddresses();
+  }
 
   return (
     <Card className="px-8 py-6 text-center w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark">
@@ -100,10 +136,9 @@ const UserCard: React.FC = () => {
             </button>
           </div>
           <div className="my-4 border-t border-app-gray-200 dark:border-app-gray-600"></div>
-          <div className="space-y-2">
-            <Button
+          <Button
               size="sm"
-              className="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white"
+              className="gap-2 w-full !border-app-gray-300 !text-app-gray-800 dark:!text-app-white mb-2"
               variant="secondary"
               onClick={handleCopyAddress}
             >
@@ -121,6 +156,32 @@ const UserCard: React.FC = () => {
                   <HiOutlineDuplicate className={`cursor-pointer ${isCopied ? "text-app-success" : "text-app-gray-800 dark:text-app-white"}`} />
                 )}
               </div>
+            </Button>
+          <div className="space-y-2">
+            {
+              selectedWallet && (
+                <Dropdown
+                  options={walletAddresses.map((wallet) => ({ 
+                    name: getTruncateString(wallet.address), value: wallet.address,
+                    endSlot: <HiOutlineTrash className="text-app-red-500" onClick={() => onDelete(wallet)} />
+                   }))}
+                  defaultValue={selectedWallet}
+                  onChange={(val) => setSelectedWallet(val as string)}
+                  classes={{ container: "w-full" }}
+                />
+              )
+            }
+            <TextField
+              value={newWalletName}
+              onChange={(e) => setNewWalletName(e.target.value)}
+              label="Create New Wallet"
+              pill={true}
+              type="text"
+              className="w-full rounded-md"
+              placeholder="Enter wallet name"
+            />
+            <Button onClick={createNewWallet} className="my-4" variant="primary" block>
+              Create New Wallet
             </Button>
           </div>
           <Drawer
