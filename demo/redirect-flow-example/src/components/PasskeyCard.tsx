@@ -14,13 +14,13 @@ interface Passkey {
 }
 
 const PasskeysCard: React.FC = () => {
-  const { passkeyPlugin, coreKitInstance } = useCoreKit();
+  const { coreKitInstance } = useCoreKit();
   const [hasPasskeys, setHasPasskeys] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [passkeys, setPasskeys] = React.useState<Passkey[]>([]);
 
   React.useEffect(() => {
-    listPasskeys();
+    // listPasskeys();
   }, []);
 
   React.useEffect(() => {
@@ -29,48 +29,48 @@ const PasskeysCard: React.FC = () => {
     }
   }, [passkeys]);
 
-  const deletePasskey = (id: string) => {
-    console.log("delete passkey", id);
-    passkeyPlugin?.unRegisterPasskey({ credentialPubKey: id, verifier: "web3auth" } as any);
-  };
+  // const deletePasskey = (id: string) => {
+  //   console.log("delete passkey", id);
+  //   passkeyPlugin?.unRegisterPasskey({ credentialPubKey: id, verifier: "web3auth" } as any);
+  // };
 
-  const registerPasskey = async () => {
-    setIsLoading(true);
-    try {
-      if (!coreKitInstance) {
-        throw new Error("coreKitInstance is not set");
-      }
-      if (!passkeyPlugin) {
-        throw new Error("passkeyPlugin is not set");
-      }
-      // const result = shouldSupportPasskey();
-      // if (!result.isBrowserSupported) {
-      //   console.log("Browser not supported");
-      //   throw new Error("Browser not supported");
-      // }
-      await passkeyPlugin.registerPasskey();
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  // const registerPasskey = async () => {
+  //   setIsLoading(true);
+  //   try {
+  //     if (!coreKitInstance) {
+  //       throw new Error("coreKitInstance is not set");
+  //     }
+  //     if (!passkeyPlugin) {
+  //       throw new Error("passkeyPlugin is not set");
+  //     }
+  //     // const result = shouldSupportPasskey();
+  //     // if (!result.isBrowserSupported) {
+  //     //   console.log("Browser not supported");
+  //     //   throw new Error("Browser not supported");
+  //     // }
+  //     await passkeyPlugin.registerPasskey();
+  //   } catch (error) {
+  //     console.error(error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
-  const listPasskeys = async () => {
-    try {
-      if (!coreKitInstance) {
-        throw new Error("coreKitInstance is not set");
-      }
-      if (!passkeyPlugin) {
-        throw new Error("passkeyPlugin is not set");
-      }
-      const passkeys = await passkeyPlugin.listPasskeys();
-      console.log({ passkeyPlugin, passkeys });
-      setPasskeys(passkeys);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const listPasskeys = async () => {
+  //   try {
+  //     if (!coreKitInstance) {
+  //       throw new Error("coreKitInstance is not set");
+  //     }
+  //     if (!passkeyPlugin) {
+  //       throw new Error("passkeyPlugin is not set");
+  //     }
+  //     const passkeys = await passkeyPlugin.listPasskeys();
+  //     console.log({ passkeyPlugin, passkeys });
+  //     setPasskeys(passkeys);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <Card className="px-8 py-6 w-full !rounded-2xl !shadow-modal !border-0 dark:!border-app-gray-800 dark:!shadow-dark">
@@ -105,9 +105,9 @@ const PasskeysCard: React.FC = () => {
                 <p className="text-xs text-app-gray-400">{passkey.verifier_id}</p>
               </div>
               <div className="ml-auto">
-                <Button loading={isLoading} rounded variant="text" onClick={() => deletePasskey(passkey.passkey_pub_key)}>
+                {/* <Button loading={isLoading} rounded variant="text" onClick={() => deletePasskey(passkey.passkey_pub_key)}>
                   <HiOutlineMinusCircle className="text-app-gray-900 dark:text-app-white w-5 h-5"/>
-                </Button>
+                </Button> */}
               </div>
             </div>
           ))}

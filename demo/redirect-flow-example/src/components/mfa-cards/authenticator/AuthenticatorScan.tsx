@@ -175,7 +175,7 @@ const AuthenticatorQRCodeCard: React.FC = () => {
     setIsLoading(true);
     try {
       const precomputedTssClient = await coreKitInstance.precompute_secp256k1();
-      const sig = await coreKitInstance.sign(Buffer.from(keccak256(Buffer.from(secretKey, "utf-8"))), true, precomputedTssClient);
+      const sig = await coreKitInstance.sign(Buffer.from(keccak256(Buffer.from(secretKey, "utf-8"))), { hashed: true });
       const pubKey = getEcCrypto().keyFromPublic(coreKitInstance.getPubKey()).getPublic();
       // Extract r, s, and v from the signature buffer
       const sigUint8Array = new Uint8Array(sig);
