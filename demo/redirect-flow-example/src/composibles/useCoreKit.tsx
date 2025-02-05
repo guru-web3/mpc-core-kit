@@ -1,4 +1,4 @@
-import { COREKIT_STATUS, CoreKitMode, makeEthereumSigner, UserInfo, WEB3AUTH_NETWORK, Web3AuthMPCCoreKit } from "@web3auth/mpc-core-kit";
+import { COREKIT_STATUS, CoreKitMode, makeEthereumSigner, UserInfo, WEB3AUTH_NETWORK, Web3AuthMPCCoreKit } from "@guru_test/mpc-core-kit";
 // import { PasskeysPlugin } from "@web3auth/mpc-passkey-plugin";
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { tssLib as tssLibDkls } from "@toruslabs/tss-dkls-lib";

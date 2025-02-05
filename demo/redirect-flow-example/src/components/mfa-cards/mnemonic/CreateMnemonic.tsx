@@ -2,7 +2,7 @@ import * as React from "react";
 import { Button } from "../../Button";
 import { Card } from "../../Card";
 import { useCoreKit } from "../../../composibles/useCoreKit";
-import { COREKIT_STATUS, FactorKeyTypeShareDescription, generateFactorKey, keyToMnemonic, TssShareType } from "@web3auth/mpc-core-kit";
+import { COREKIT_STATUS, FactorKeyTypeShareDescription, generateFactorKey, keyToMnemonic, TssShareType } from "@guru_test/mpc-core-kit";
 import BN from "bn.js";
 
 const CreateMnemonicPhraseCard: React.FC = () => {

@@ -2,7 +2,7 @@ import * as React from "react";
 import { Button } from "./Button";
 import { useCoreKit } from "../composibles/useCoreKit";
 import { useNavigate } from "react-router-dom";
-import { COREKIT_STATUS } from "@web3auth/mpc-core-kit";
+import { COREKIT_STATUS } from "@guru_test/mpc-core-kit";
 import { KeyType } from "@tkey/common-types";
 
 const Header: React.FC = () => {

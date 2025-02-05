@@ -2,7 +2,7 @@ import * as React from "react";
 import { Button } from "../../Button";
 import { Card } from "../../Card";
 import { TextField } from "../../TextField";
-import { TssSecurityQuestion } from "@web3auth/mpc-core-kit";
+import { TssSecurityQuestion } from "@guru_test/mpc-core-kit";
 import { useCoreKit } from "../../../composibles/useCoreKit";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../Loader";

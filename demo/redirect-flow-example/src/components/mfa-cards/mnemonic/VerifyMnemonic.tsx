@@ -2,7 +2,7 @@ import * as React from "react";
 import { Button } from "../../Button";
 import { Card } from "../../Card";
 import { useCoreKit } from "../../../composibles/useCoreKit";
-import { mnemonicToKey } from "@web3auth/mpc-core-kit";
+import { mnemonicToKey } from "@guru_test/mpc-core-kit";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../Loader";
 

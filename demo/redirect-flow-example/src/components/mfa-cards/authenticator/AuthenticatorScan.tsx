@@ -6,7 +6,7 @@ import base32 from "hi-base32";
 import { useCoreKit } from "../../../composibles/useCoreKit";
 import url from "url";
 import QRCode from "react-qr-code";
-import { COREKIT_STATUS, FactorKeyTypeShareDescription, generateFactorKey, TssShareType } from "@web3auth/mpc-core-kit";
+import { COREKIT_STATUS, FactorKeyTypeShareDescription, generateFactorKey, TssShareType } from "@guru_test/mpc-core-kit";
 import axios from "axios";
 import BN from "bn.js";
 import { Point } from "@tkey/common-types";

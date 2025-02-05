@@ -3,7 +3,7 @@ import { Button } from "../../Button";
 import { Card } from "../../Card";
 import { TextField } from "../../TextField";
 import { useCoreKit } from "../../../composibles/useCoreKit";
-import { COREKIT_STATUS, FactorKeyTypeShareDescription, TssSecurityQuestion, TssShareType } from "@web3auth/mpc-core-kit";
+import { COREKIT_STATUS, FactorKeyTypeShareDescription, TssSecurityQuestion, TssShareType } from "@guru_test/mpc-core-kit";
 
 const GetPasswordCard: React.FC = () => {
   const { coreKitInstance, setDrawerHeading, setDrawerInfo, setAddShareType } = useCoreKit();

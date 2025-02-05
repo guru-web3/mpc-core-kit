@@ -6,7 +6,7 @@ import * as bitcoinjs from "bitcoinjs-lib";
 import axios from "axios";
 import { useCoreKit } from "./useCoreKit";
 import { createBitcoinJsSigner, createBitcoinJsSignerBip340 } from "./BitcoinSigner";
-import { COREKIT_STATUS } from "@web3auth/mpc-core-kit";
+import { COREKIT_STATUS } from "@guru_test/mpc-core-kit";
 
 bitcoinjs.initEccLib(ecc);
 const ECPair = ECPairFactory(ecc);

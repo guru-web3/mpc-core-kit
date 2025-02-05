@@ -1,5 +1,5 @@
 import { secp256k1 } from "@tkey/common-types";
-import { Web3AuthMPCCoreKit } from "@web3auth/mpc-core-kit";
+import { Web3AuthMPCCoreKit } from "@guru_test/mpc-core-kit";
 import { networks, SignerAsync } from "bitcoinjs-lib";
 import * as bitcoinjs from "bitcoinjs-lib";
 import ECPairFactory from "ecpair";

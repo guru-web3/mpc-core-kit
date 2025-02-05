@@ -4,7 +4,7 @@ import { Button } from "../../Button";
 import { Card } from "../../Card";
 import { useCoreKit } from "../../../composibles/useCoreKit";
 import { BN } from "bn.js";
-import { COREKIT_STATUS } from "@web3auth/mpc-core-kit";
+import { COREKIT_STATUS } from "@guru_test/mpc-core-kit";
 import { KeyType } from "@tkey/common-types";
 
 const RecoveryOptionsCard: React.FC = () => {

@@ -3,7 +3,7 @@ import { Button } from "./Button";
 import { Card } from "./Card";
 import { AddShareType, useCoreKit } from "../composibles/useCoreKit";
 import { BN } from "bn.js";
-import { COREKIT_STATUS } from "@web3auth/mpc-core-kit";
+import { COREKIT_STATUS } from "@guru_test/mpc-core-kit";
 import { useNavigate } from "react-router-dom";
 import { KeyType } from "@tkey/common-types";
 

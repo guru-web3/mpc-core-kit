@@ -3,7 +3,7 @@ import {
   COREKIT_STATUS,
   makeEthereumSigner,
   AggregateVerifierLoginParams,
-} from "@web3auth/mpc-core-kit";
+} from "@guru_test/mpc-core-kit";
 
 import Web3 from "web3";
 import { CHAIN_NAMESPACES, CustomChainConfig, IProvider } from "@web3auth/base";
