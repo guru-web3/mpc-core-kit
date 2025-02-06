@@ -62,9 +62,11 @@ const useBtcRPC = () => {
       const address = getAddress(signer, type);
       if (!address) throw new Error("Failed to generate address");
       const utxos = await fetchUtxos(address);
-      const balance = utxos.reduce((acc, utxo) => acc + utxo.value, 0);
-      setBtcBalance(balance.toString());
-      return balance.toString();
+      const balanceInSatoshis = utxos.reduce((acc, utxo) => acc + utxo.value, 0);
+      const balanceInBtc = (balanceInSatoshis || 0) / 100000000;
+
+      setBtcBalance(balanceInBtc.toString());
+      return balanceInBtc.toString();
     } catch (err) {
       return (err as Error).message;
     }
@@ -85,7 +87,7 @@ const useBtcRPC = () => {
 
       const utxo = utxos[0];
       const fee = await estimateFee();
-      const sendAmount = amountInSatoshis || utxo.value - fee;
+      const sendAmount = Math.floor(amountInSatoshis * 100000000) || utxo.value - fee;
       const xOnlyPubKey = signer.publicKey.subarray(1, 33);
 
 

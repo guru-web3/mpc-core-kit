@@ -12,7 +12,7 @@ import { Dropdown } from "./DropDown";
 import { TextField } from "./TextField";
 
 const UserCard: React.FC = () => {
-  const { drawerHeading, setDrawerHeading, drawerInfo, setDrawerInfo, userInfo, coreKitInstance, networkName } = useCoreKit();
+  const { drawerHeading, setDrawerHeading, drawerInfo, setDrawerInfo, userInfo, coreKitInstance, coin } = useCoreKit();
   const { getAccount, account, getBalance } = useUnifiedRPC();
   const [openConsole, setOpenConsole] = React.useState(false);
   const [ balance, setBalance ] = React.useState<string>("");
@@ -40,7 +40,7 @@ const UserCard: React.FC = () => {
       if (account) {
         fetchWalletAddresses();
         const balance = await getBalance();
-        setBalance(`${balance} ${networkName}`);
+        setBalance(`${balance} ${coin}`);
       }
     }
     init();
