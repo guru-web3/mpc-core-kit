@@ -14,15 +14,18 @@ const useUnifiedRPC = () => {
   const [balance, setBalance] = React.useState<string>("");
 
   useEffect(() => {
-    if (coreKitInstance.keyType === KeyType.secp256k1) {
-      if (coreKitInstance.sigType === "bip340") {
-        setAccount(btcRPC.btcAddress || "");
-      } else if (coreKitInstance.sigType === "ecdsa-secp256k1") {
-        setAccount(ethereumRPC.ethereumAccount);
+    const initRPC = async () => {
+      if (coreKitInstance.keyType === KeyType.secp256k1) {
+        if (coreKitInstance.sigType === "bip340") {
+          setAccount(btcRPC.btcAddress || "");
+        } else if (coreKitInstance.sigType === "ecdsa-secp256k1") {
+          setAccount(ethereumRPC.ethereumAccount);
+        }
+      } else if (coreKitInstance.keyType === KeyType.ed25519) {
+        setAccount(solanaRPC.publicKey?.toBase58() || "");
       }
-    } else if (coreKitInstance.keyType === KeyType.ed25519) {
-      setAccount(solanaRPC.publicKey?.toBase58() || "");
-    }
+    };
+    initRPC();
   }, [solanaRPC.publicKey, ethereumRPC.ethereumAccount, btcRPC.btcAddress, coreKitInstance.keyType]);
 
   const getAccount = async () => {
